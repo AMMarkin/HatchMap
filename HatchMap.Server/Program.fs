@@ -1,6 +1,7 @@
 open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.Hosting
+open Hatches
 
 [<EntryPoint>]
 let main args =
@@ -9,8 +10,8 @@ let main args =
 
     app.UseStaticFiles() |> ignore
     
-    app.MapGet("/", Func<string>(fun () -> "Hello World!")) |> ignore
-    
+    app.MapGet("/", Func<obj>(fun () -> getPhotoInfos)) |> ignore
+
     app.Run()
 
     0 // Exit code
