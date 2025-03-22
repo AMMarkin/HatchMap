@@ -22,6 +22,7 @@ body{
 .title{
     margin:0;
     padding: 1rem;
+    text-align: center;
 }
 
 #map{
@@ -30,6 +31,26 @@ body{
 }
 
 .popup{
-    width: 100px;
-    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.popup_image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.25rem;
+    box-shadow: 0px 2px 5px gray;
+}
+
+
+.popup_closebutton{
+    padding: 8px 16px;
+    border-radius: 0.25rem;
+    border: 0;
+}
+button.popup_closebutton:hover {
+    background: lightgrey;
 }

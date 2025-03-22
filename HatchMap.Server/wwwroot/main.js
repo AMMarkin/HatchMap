@@ -33,7 +33,7 @@ async function initMap() {
                 center: [37.588144, 55.733842],
 
                 // Уровень масштабирования
-                zoom: 10
+                zoom: 15
             }
         }
     );
@@ -69,7 +69,7 @@ async function initMap() {
 
             const closeButton = document.createElement('button');
             closeButton.textContent = "Закрыть"
-            closeButton.classList.add('close_icon');
+            closeButton.classList.add('popup_closebutton');
             closeButton.onclick = () => marker.update({ popup: { show: false }});
             markerPopup.appendChild(closeButton)
             
