@@ -78,7 +78,7 @@ async function initMap() {
         
         marker = new YMapDefaultMarker({
             coordinates: location,
-            color: 'blue',
+            color: type === 'менажницы' ? 'blue' : 'orange',
             onClick(){
                 marker.update({popup: {show: true}})
             },
