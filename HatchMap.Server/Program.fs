@@ -10,8 +10,8 @@ let main args =
 
     app.UseStaticFiles() |> ignore
     
-    app.MapGet("/", Func<obj>(fun () -> getPhotoInfos)) |> ignore
-
+    app.MapGet("/hatches", Func<obj>(fun () -> getPhotoInfos)) |> ignore
+    app.MapFallbackToFile("index.html") |> ignore
     app.Run()
 
     0 // Exit code
