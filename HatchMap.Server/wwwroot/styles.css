@@ -29,3 +29,7 @@ body{
     flex-grow: 1;
 }
 
+.popup{
+    width: 100px;
+    height: 100px;
+}

@@ -4,7 +4,23 @@ async function initMap() {
     // Промис `ymaps3.ready` будет зарезолвлен, когда загрузятся все компоненты основного модуля API
     await ymaps3.ready;
 
-    const {YMap, YMapDefaultSchemeLayer} = ymaps3;
+    const {
+        YMap, 
+        YMapDefaultSchemeLayer, 
+        YMapDefaultFeaturesLayer,
+        YMapMarker, 
+        YMapControls
+    } = ymaps3;
+
+    // register in `ymaps3.import` which CDN to take the package from
+    ymaps3.import.registerCdn('https://cdn.jsdelivr.net/npm/{package}', '@yandex/ymaps3-default-ui-theme@latest');
+
+    // import package from CDN
+    const {
+        YMapZoomControl, 
+        YMapDefaultMarker
+    } = await ymaps3.import('@yandex/ymaps3-default-ui-theme');
+
 
     // Иницилиазируем карту
     const map = new YMap(
@@ -25,4 +41,40 @@ async function initMap() {
 
     // Добавляем слой для отображения схематической карты
     map.addChild(new YMapDefaultSchemeLayer());
+    map.addChild(new YMapDefaultFeaturesLayer());
+    map.addChild(new YMapControls({position: 'right'}).addChild(new YMapZoomControl({})));
+
+    map.addChild(createHatchMarker({}));
+
+
+    function createHatchMarker({}){
+        let marker = null;
+
+        const createMarkerPopup = () => {
+            const markerPopup = document.createElement('div')
+            markerPopup.classList.add('popup')
+            
+            const closeButton = document.createElement('button');
+            closeButton.textContent = "Закрыть"
+            closeButton.classList.add('close_icon');
+            closeButton.onclick = () => marker.update({ popup: { show: false }});
+            markerPopup.appendChild(closeButton)
+            
+            return markerPopup;
+        }
+            
+        marker = new YMapDefaultMarker({
+            coordinates: [37.55, 55.73],
+            color: 'blue',
+            onClick(){
+                marker.update({popup: {show: true}})
+            },
+            popup: {
+                content: createMarkerPopup,
+                position: 'right'
+            }
+        })
+        return marker;
+    }
 }
+
