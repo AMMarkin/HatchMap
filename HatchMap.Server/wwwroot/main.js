@@ -62,6 +62,11 @@ async function initMap() {
             const markerPopup = document.createElement('div')
             markerPopup.classList.add('popup')
             
+            const popupImage = document.createElement('img')
+            popupImage.src = `./Photos/${type}/${filename}`
+            popupImage.classList.add('popup_image')
+            markerPopup.appendChild(popupImage)
+
             const closeButton = document.createElement('button');
             closeButton.textContent = "Закрыть"
             closeButton.classList.add('close_icon');
