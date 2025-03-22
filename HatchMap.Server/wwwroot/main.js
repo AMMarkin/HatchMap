@@ -21,7 +21,6 @@ async function initMap() {
         YMapDefaultMarker
     } = await ymaps3.import('@yandex/ymaps3-default-ui-theme');
 
-
     // Иницилиазируем карту
     const map = new YMap(
         // Передаём ссылку на HTMLElement контейнера
@@ -43,11 +42,20 @@ async function initMap() {
     map.addChild(new YMapDefaultSchemeLayer());
     map.addChild(new YMapDefaultFeaturesLayer());
     map.addChild(new YMapControls({position: 'right'}).addChild(new YMapZoomControl({})));
+    
+    const hatchInfos = await fetch('/hatches')
+        .then(async response => await response.json())
+        .then(hatchArray => hatchArray.map(x => {
+            return {
+                location: [x.longitude, x.latitude],
+                filename: x.filename,
+                type: x.type
+            }}));
 
-    map.addChild(createHatchMarker({}));
 
+    hatchInfos.forEach(hatch => map.addChild(createHatchMarker(hatch)))
 
-    function createHatchMarker({}){
+    function createHatchMarker({location, type, filename}){
         let marker = null;
 
         const createMarkerPopup = () => {
@@ -62,9 +70,9 @@ async function initMap() {
             
             return markerPopup;
         }
-            
+        
         marker = new YMapDefaultMarker({
-            coordinates: [37.55, 55.73],
+            coordinates: location,
             color: 'blue',
             onClick(){
                 marker.update({popup: {show: true}})
