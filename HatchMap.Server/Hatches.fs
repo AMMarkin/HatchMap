@@ -6,7 +6,7 @@ open MetadataExtractor
 
 let currentDirectory = Directory.GetCurrentDirectory()
 
-let photosBaseDirectory = Path.Combine [|currentDirectory;"..";"Photos"|]
+let photosBaseDirectory = Path.Combine [|currentDirectory;"wwwroot";"Photos"|]
 
 let photoDirs = Directory.GetDirectories photosBaseDirectory 
 
@@ -37,7 +37,7 @@ let getPhotoInfos =
             
         {|
             Filename = Path.GetFileName file
-            Typo = (Directory.GetParent file).Name
+            Type = (Directory.GetParent file).Name
             Latitude = latitude
             Longitude = longitude
         |}
