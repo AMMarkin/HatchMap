@@ -80,7 +80,7 @@ async function initMap() {
             coordinates: location,
             color: type === 'менажницы' ? 'blue' : 'orange',
             onClick(){
-                marker.update({popup: {show: true}})
+                marker.update({popup: {show: !marker._props.popup.show}})
             },
             popup: {
                 content: createMarkerPopup,
