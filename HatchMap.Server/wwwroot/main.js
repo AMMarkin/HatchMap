@@ -8,7 +8,6 @@ async function initMap() {
         YMap, 
         YMapDefaultSchemeLayer, 
         YMapDefaultFeaturesLayer,
-        YMapMarker, 
         YMapControls
     } = ymaps3;
 
@@ -42,7 +41,8 @@ async function initMap() {
     map.addChild(new YMapDefaultSchemeLayer());
     map.addChild(new YMapDefaultFeaturesLayer());
     map.addChild(new YMapControls({position: 'right'}).addChild(new YMapZoomControl({})));
-    
+
+    // Заполнение маркерами
     const hatchInfos = await fetch('/hatches')
         .then(async response => await response.json())
         .then(hatchArray => hatchArray.map(x => {
@@ -51,7 +51,6 @@ async function initMap() {
                 filename: x.filename,
                 type: x.type
             }}));
-
 
     hatchInfos.forEach(hatch => map.addChild(createHatchMarker(hatch)))
 
@@ -67,7 +66,7 @@ async function initMap() {
             imageLink.target = '_blank'
             imageLink.href = imageSrc;
             imageLink.title = 'Открыть'
-            
+
             const popupImage = document.createElement('img')
             popupImage.src = imageSrc
             popupImage.classList.add('popup_image')
