@@ -42,21 +42,24 @@ body{
 }
 
 .popup_image{
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 220px;
     object-fit: cover;
     object-position: center;
     border-radius: 0.25rem;
     box-shadow: 0px 2px 5px gray;
 }
 
-
-.popup_closebutton{
+.btn{
     padding: 8px 16px;
     border-radius: 0.25rem;
     border: 0;
     font: inherit;
+    background-color: whitesmoke;
+    text-decoration: none;
+    text-align: center;
+    color: black;
 }
-button.popup_closebutton:hover {
+.btn:hover {
     background: lightgrey;
 }

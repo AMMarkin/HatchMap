@@ -73,10 +73,18 @@ async function initMap() {
 
             imageLink.appendChild(popupImage)
             markerPopup.appendChild(imageLink)
+            
+            const mapLink = document.createElement('a')
+            mapLink.classList.add('btn')
+            mapLink.target = '_blank'
+            const urlEncodedComma = '%2C'
+            mapLink.href = `https://yandex.ru/maps/?text=${location[1]}${urlEncodedComma}${location[0]}&z=18`
+            mapLink.textContent = 'Открыть в Яндексъ Карте'
+            markerPopup.appendChild(mapLink)
 
             const closeButton = document.createElement('button');
             closeButton.textContent = "Закрыть"
-            closeButton.classList.add('popup_closebutton');
+            closeButton.classList.add('btn');
             closeButton.onclick = () => marker.update({ popup: { show: false }});
             markerPopup.appendChild(closeButton)
             
