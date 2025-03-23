@@ -52,7 +52,8 @@ async function initMap() {
                 type: x.type
             }}));
 
-    hatchInfos.forEach(hatch => map.addChild(createHatchMarker(hatch)))
+    const hatchMarkers = hatchInfos.map(hatch => createHatchMarker(hatch))
+    hatchMarkers.forEach(marker => map.addChild(marker))
 
     function createHatchMarker({location, type, filename}){
         let marker = null;
@@ -95,7 +96,12 @@ async function initMap() {
             coordinates: location,
             color: type === 'менажницы' ? 'blue' : 'orange',
             onClick(){
-                marker.update({popup: {show: !marker._props.popup.show}})
+                hatchMarkers.forEach(m => {
+                    if(m === marker)
+                        marker.update({popup: {show: !marker._props.popup.show}})
+                    else
+                        m.update({popup: {show: false}})
+                })
             },
             popup: {
                 content: createMarkerPopup,
