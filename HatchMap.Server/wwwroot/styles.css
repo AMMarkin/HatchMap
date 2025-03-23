@@ -7,32 +7,29 @@
     box-sizing: border-box;
 }
 
-html, body{
-    height: 100%;
-    margin: 0;
+html{
     font-family: 'BrokgauzEfron';
 }
 
 body{
-    display: flex;
-    flex-direction: column;
-}
+    background-image: url('./img/old_paper_1.jpg');
+    object-fit: cover;
+    object-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-.container{
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
 }
 
 .title{
-    margin:0;
-    padding: 1rem;
     text-align: center;
 }
 
 #map{
+    height: 500px;
     width: 100%;
-    flex-grow: 1;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0px 1px 6px black;
 }
 
 .popup{
