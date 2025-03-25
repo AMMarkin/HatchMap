@@ -25,7 +25,7 @@ body{
 
 .paper{
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr 1fr auto;
     gap: 1rem;
 }
 
@@ -57,8 +57,8 @@ body{
     display: flex;
 }
 .sewerage{
-    grid-column: 3;
-    grid-row: 1 / 4;
+    grid-column: 4;
+    grid-row: 1 / 3;
 }
 
 .sewerage img{
@@ -69,7 +69,6 @@ body{
 .hatch{
     display: flex;
     width: fit-content;
-    grid-row: 2 / 4;
 }
 .hatch img{
     width: 100%;
@@ -82,17 +81,15 @@ body{
 .about{
     margin: 0;
     padding: 1rem;
-    grid-column: 1/3;
+    grid-column: 1 / 4;
     display: block;
 }
 
 .spiders{
     padding: 1rem;
-    grid-column: 2 / 3;
 }
 .updates{
     padding: 1rem;
-    grid-column: 2 / 3;
 }
 .map-section{
     margin-block: 2rem;
@@ -141,11 +138,18 @@ body{
 
 
 @media (max-width: 768px) {
-    .description{
-        flex-wrap: wrap;
+    .paper{
+        grid-template-columns: auto;
+        justify-items: center;
     }
-
-    .description_img{
-        width: 100%;
+    .paper .paper_block{
+        grid-column: 1;
+        align-self: center;
+    }
+    .about{
+        grid-row: 1;
+    }
+    .sewerage{
+        grid-row: 2;
     }
 }
