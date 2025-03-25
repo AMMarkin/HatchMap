@@ -3,6 +3,10 @@
     src: url('./fonts/BrokgauzEfron.ttf');
 }
 
+:root{
+    --paper-color: #eee8d8;
+}
+
 *{
     box-sizing: border-box;
 }
@@ -12,22 +16,26 @@ html{
 }
 
 body{
-    background-image: url('./img/bg.jpeg');
+    background: var(--paper-color);
     object-fit: cover;
     object-position: top;
     background-repeat: no-repeat;
     background-size: cover;
+}
 
+.paper{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
 }
 
 .header{
-    display: grid;
-    align-items: center;
     margin-block: 1rem;
+    grid-column: 1 / 3;
 }
 
 .title{
-    background-image: url('./img/header_bg.jpg');
+    background: var(--paper-color);
     object-position: top;
     padding: 0.2rem 2rem;
     overflow: hidden;
@@ -42,29 +50,50 @@ body{
         2px 1px 1px BLACK;
 }
 
-.description{
-    margin-inline: -0.5rem;
+.paper_block{
+    font-size: 1.25rem;
+    background-color: var(--paper-color);
+    border: 3px solid;
     display: flex;
-    align-items: stretch;
-    border: 1px solid;
+}
+.sewerage{
+    grid-column: 3;
+    grid-row: 1 / 4;
 }
 
+.sewerage img{
+    width: 100%;
+    max-width: 300px;
+}
 
-
-.description_img{
-    width: 50%;
+.hatch{
+    display: flex;
+    width: fit-content;
+    grid-row: 2 / 4;
+}
+.hatch img{
+    width: 100%;
+    max-width: 300px;
     aspect-ratio: 1/1;
     object-fit: cover;
     object-position: center;
 }
 
-.description_text{
+.about{
     margin: 0;
-    font-size: 1.25rem;
     padding: 1rem;
-    background-color: #fffadaba;
+    grid-column: 1/3;
+    display: block;
 }
 
+.spiders{
+    padding: 1rem;
+    grid-column: 2 / 3;
+}
+.updates{
+    padding: 1rem;
+    grid-column: 2 / 3;
+}
 .map-section{
     margin-block: 2rem;
 }
