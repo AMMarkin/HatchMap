@@ -54,19 +54,26 @@ body{
 }
 
 .description{
-    display: grid;
-    justify-content: center;
-    width: 100%;
-    padding: 0.5rem;
+    margin-inline: -0.5rem;
+    display: flex;
+    align-items: stretch;
+    border: 1px solid;
 }
 
-.description p{
-    max-width: 700px;
+
+
+.description_img{
+    width: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+}
+
+.description_text{
+    margin: 0;
     font-size: 1.25rem;
     padding: 1rem;
     background-color: #fffadaba;
-    border: 3px solid;
-    border-radius: 0.5rem;
 }
 
 .popup{
@@ -96,4 +103,14 @@ body{
 }
 .btn:hover {
     background: lightgrey;
+}
+
+@media (max-width: 768px) {
+    .description{
+        flex-wrap: wrap;
+    }
+
+    .description_img{
+        width: 100%;
+    }
 }
