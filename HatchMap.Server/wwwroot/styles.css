@@ -42,17 +42,6 @@ body{
         2px 1px 1px BLACK;
 }
 
-#map{
-    height: 80vh;
-    width: 100%;
-    border-radius: 1rem;
-    overflow: hidden;
-    
-    margin-top: 2rem;
-
-    box-shadow: 0px 1px 6px black;
-}
-
 .description{
     margin-inline: -0.5rem;
     display: flex;
@@ -75,6 +64,22 @@ body{
     padding: 1rem;
     background-color: #fffadaba;
 }
+
+.map-section{
+    margin-block: 2rem;
+}
+.map-section_title{
+    text-align: center;
+}
+
+#map{
+    height: 80vh;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0px 1px 6px black;
+}
+
 
 .popup{
     display: flex;
@@ -104,6 +109,7 @@ body{
 .btn:hover {
     background: lightgrey;
 }
+
 
 @media (max-width: 768px) {
     .description{
