@@ -80,7 +80,7 @@ async function initMap() {
             mapLink.target = '_blank'
             const urlEncodedComma = '%2C'
             mapLink.href = `https://yandex.ru/maps/?text=${location[1]}${urlEncodedComma}${location[0]}&z=18`
-            mapLink.textContent = 'Открыть в Яндексъ Карте'
+            mapLink.textContent = 'Маршрутъ'
             markerPopup.appendChild(mapLink)
 
             const closeButton = document.createElement('button');
