@@ -94,7 +94,9 @@ async function initMap() {
         
         marker = new YMapDefaultMarker({
             coordinates: location,
-            color: type === 'менажницы' ? 'blue' : 'orange',
+            color: type === 'менажницы' ? 'red' : 'orange',
+            iconName: 'landmark',
+            size: 'normal',
             onClick(){
                 hatchMarkers.forEach(m => {
                     if(m === marker)
