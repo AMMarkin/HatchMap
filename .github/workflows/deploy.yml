@@ -41,8 +41,7 @@ jobs:
         # Bash commands ran on target machine
         command: |
           cd hatchmap
-          docker kill hatchmap
-          docker run -rm -d -p '80:80' 
+          docker kill hatchmap || true
           docker run -d --rm --name hatchmap -p 80:80 alexmarkin/hatchmap
               
     
