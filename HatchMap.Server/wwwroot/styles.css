@@ -72,7 +72,6 @@ body{
 
 .paper_block{
     border: 3px solid;
-    display: flex;
     text-align: justify;
 }
 
@@ -161,7 +160,7 @@ body{
 }
 
 .rhombus-border{
-    border-image-source: url(./img/rhombus\ border.png);
+    border-image-source: url(./img/rhombus_border.png);
     border-image-slice: 30;
     border-image-width: 3;
     border-image-outset: 0;
@@ -171,6 +170,26 @@ body{
     margin-block: 2rem;
 }
 .map-section_title{
+    text-align: center;
+}
+
+.map-section_text{
+    margin-bottom: 1rem;
+}
+
+.map-section_text h5{
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.counters{
+    min-width: 300px;
+    padding-top: 1rem;
+    border-image-source: url('./img/rect_border.png');
+    border-image-slice: 97 85 100 85;
+    border-image-width: 20;
+    border-image-outset: 25px;
+    border-image-repeat: stretch;
     text-align: center;
 }
 
