@@ -52,6 +52,10 @@ async function initMap() {
                 type: x.type
             }}));
 
+    var menCount = hatchInfos.filter(x => x.type === 'менажницы').length
+    document.getElementById('menagerieCount').textContent = menCount
+    document.getElementById('cockroachCount').textContent = hatchInfos.length - menCount
+
     const hatchMarkers = hatchInfos.map(hatch => createHatchMarker(hatch))
     hatchMarkers.forEach(marker => map.addChild(marker))
 
