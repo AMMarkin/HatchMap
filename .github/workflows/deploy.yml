@@ -41,7 +41,8 @@ jobs:
         # Bash commands ran on target machine
         command: |
           cd hatchmap
-          docker-compose down
-          docker-compose -d up
+          docker kill hatchmap
+          docker run -rm -d -p '80:80' 
+          docker run -d --rm --name hatchmap -p 80:80 alexmarkin/hatchmap
               
     
