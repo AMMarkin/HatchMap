@@ -42,6 +42,7 @@ jobs:
         command: |
           cd hatchmap
           docker kill hatchmap || true
-          docker run -d --rm --name hatchmap -p 80:80 alexmarkin/hatchmap
+          docker rm hatchmap || true
+          docker run -d --name hatchmap -p 80:80 alexmarkin/hatchmap
               
     
