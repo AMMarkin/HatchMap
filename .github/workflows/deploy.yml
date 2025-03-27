@@ -27,4 +27,21 @@ jobs:
     - name: Push Docker Image
       run: docker push alexmarkin/hatchmap
 
+    - name: Deploy
+      # You may pin to the exact commit or the version.
+      # uses: nekiro/ssh-job@e0d177751aced5bcaf110ce4d782a681e5e12856
+      uses: nekiro/ssh-job@v1.0.5
+      with:
+        # Target machine hostname or ip
+        host: ${{secrets.VPS_HOST}}
+        # Port to use while connecting
+        user: root
+        # Ssh password
+        password: ${{secrets.VPS_SSH_PASSWORD}}
+        # Bash commands ran on target machine
+        command: |
+          cd hatchmap
+          docker-compose down
+          docker-compose -d up
+              
     
