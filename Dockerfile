@@ -4,7 +4,7 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY HatchMap.Server/*.csproj ./HatchMap.Server/
+COPY HatchMap.Server/*.fsproj ./HatchMap.Server/
 RUN dotnet restore
 
 # copy everything else and build app
