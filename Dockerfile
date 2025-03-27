@@ -4,12 +4,12 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY HatchMap/*.csproj ./HatchMap/
+COPY HatchMap.Server/*.csproj ./HatchMap.Server/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY HatchMap/. ./HatchMap/
-WORKDIR /source/HatchMap
+COPY HatchMap.Server/. ./HatchMap.Server/
+WORKDIR /source/HatchMap.Server
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
