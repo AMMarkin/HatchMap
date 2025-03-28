@@ -44,6 +44,6 @@ jobs:
           docker pull alexmarkin/hatchmap
           docker kill hatchmap || true
           docker rm hatchmap || true
-          docker run -d --name hatchmap -p 80:8080 -p 443:8081 -v ./https:/https/ --env-file=hatchmap.env alexmarkin/hatchmap
+          docker run -d --name hatchmap -p 80:8080 -p 443:8081 -v ./https:/https/ --env-file=./hatchmap.env alexmarkin/hatchmap
               
     
