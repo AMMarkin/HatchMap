@@ -77,7 +77,6 @@ body{
 
 .text_block{
     font-size: 1.25rem;
-    background-color: var(--paper-color);
     display: block;
     margin: 0;
     padding: 1rem 1.5rem;
@@ -114,6 +113,7 @@ body{
     position: absolute;
     inset: 0;
     border: 2px solid black;
+    z-index: -1;
 }
 
 .about::before{
