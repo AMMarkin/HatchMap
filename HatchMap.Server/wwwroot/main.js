@@ -73,35 +73,38 @@ async function initMap() {
                 map.update({location: {bounds, easing: 'ease-in-out', duration: 1500}});
             }
             },
-            circle(features.length).cloneNode(true)
+            circle(features.length, features[0].properties.type === "менажницы" ? "#e63d2e" : "#ffa15e").cloneNode(true)
         );
 
-    function circle(count) {
+    function circle(count, color) {
         const circle = document.createElement('div');
         circle.classList.add('circle');
         circle.innerHTML = `
-                <div class="circle-content">
+                <div class="circle-content" style="color: ${color}">
                     <span class="circle-text">${count}</span>
                 </div>
             `;
         return circle;
     }
 
-    const points = hatchInfos.map((hatchInfo, i) => ({
-        type: 'Feature',
-        id: i,
-        geometry: {coordinates: hatchInfo.location},
-        properties: {name: 'Количество люков', type: hatchInfo.type, filename: hatchInfo.filename}
-      }));
-
-    const clusterer = new YMapClusterer({
-        method: clusterByGrid({gridSize: 64}),
-        features: points,
-        marker: createHatchMarker,
-        cluster: createClusterMarker
-    });
-
-    map.addChild(clusterer);
+    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type === 'менажницы')));
+    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'менажницы')));
+    
+    function createClusterForHatches(hatches){
+        const points = hatches.map((hatchInfo, i) => ({
+            type: 'Feature',
+            id: i,
+            geometry: {coordinates: hatchInfo.location},
+            properties: {name: 'Количество люков', type: hatchInfo.type, filename: hatchInfo.filename}
+          }));
+    
+        return new YMapClusterer({
+            method: clusterByGrid({gridSize: 64}),
+            features: points,
+            marker: createHatchMarker,
+            cluster: createClusterMarker
+        });
+    }
 
 
     function createHatchMarker({geometry, properties}){
