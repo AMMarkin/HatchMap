@@ -12,14 +12,22 @@ async function initMap() {
     } = ymaps3;
 
     // register in `ymaps3.import` which CDN to take the package from
-    ymaps3.import.registerCdn('https://cdn.jsdelivr.net/npm/{package}', '@yandex/ymaps3-default-ui-theme@latest');
+    ymaps3.import.registerCdn('https://cdn.jsdelivr.net/npm/{package}', [
+        '@yandex/ymaps3-default-ui-theme@latest', 
+        '@yandex/ymaps3-clusterer@latest'
+    ]);
 
     // import package from CDN
     const {
         YMapZoomControl, 
         YMapDefaultMarker
     } = await ymaps3.import('@yandex/ymaps3-default-ui-theme');
-
+    
+    const {
+        YMapClusterer, 
+        clusterByGrid
+    } = await ymaps3.import('@yandex/ymaps3-clusterer');
+          
     // Иницилиазируем карту
     const map = new YMap(
         // Передаём ссылку на HTMLElement контейнера
@@ -56,10 +64,50 @@ async function initMap() {
     document.getElementById('menagerieCount').textContent = menCount
     document.getElementById('cockroachCount').textContent = hatchInfos.length - menCount
 
-    const hatchMarkers = hatchInfos.map(hatch => createHatchMarker(hatch))
-    hatchMarkers.forEach(marker => map.addChild(marker))
+    const createClusterMarker = (coordinates, features) =>
+        new ymaps3.YMapMarker(
+            {
+            coordinates,
+            onClick() {
+                const bounds = getBounds(features.map((feature) => feature.geometry.coordinates));
+                map.update({location: {bounds, easing: 'ease-in-out', duration: 1500}});
+            }
+            },
+            circle(features.length).cloneNode(true)
+        );
 
-    function createHatchMarker({location, type, filename}){
+    function circle(count) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        circle.innerHTML = `
+                <div class="circle-content">
+                    <span class="circle-text">${count}</span>
+                </div>
+            `;
+        return circle;
+    }
+
+    const points = hatchInfos.map((hatchInfo, i) => ({
+        type: 'Feature',
+        id: i,
+        geometry: {coordinates: hatchInfo.location},
+        properties: {name: 'Количество люков', type: hatchInfo.type, filename: hatchInfo.filename}
+      }));
+
+    const clusterer = new YMapClusterer({
+        method: clusterByGrid({gridSize: 64}),
+        features: points,
+        marker: createHatchMarker,
+        cluster: createClusterMarker
+    });
+
+    map.addChild(clusterer);
+
+
+    function createHatchMarker({geometry, properties}){
+        const location = geometry.coordinates
+        const {type, filename} = properties
+
         let marker = null;
 
         const createMarkerPopup = () => {
@@ -116,5 +164,27 @@ async function initMap() {
         })
         return marker;
     }
+
+    function getBounds(coordinates){
+        let minLat = Infinity,
+          minLng = Infinity;
+        let maxLat = -Infinity,
+          maxLng = -Infinity;
+      
+        for (const coords of coordinates) {
+          const lat = coords[1];
+          const lng = coords[0];
+      
+          if (lat < minLat) minLat = lat;
+          if (lat > maxLat) maxLat = lat;
+          if (lng < minLng) minLng = lng;
+          if (lng > maxLng) maxLng = lng;
+        }
+      
+        return [
+          [minLng, minLat],
+          [maxLng, maxLat]
+        ];
+      }
 }
 
