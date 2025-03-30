@@ -267,12 +267,19 @@ body{
     transform: translate3d(-50%, -50%, 0);
   }
   
-  .circle-text {
+.circle-text {
     font-size: 16px;
     font-weight: 500;
     line-height: 20px;
     color: #fff;
-  }
+}
+
+.legend-circle{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
 
 @media (max-width: 768px) {
     .paper{
