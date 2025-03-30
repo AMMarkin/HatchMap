@@ -99,7 +99,7 @@ async function initMap() {
           }));
     
         return new YMapClusterer({
-            method: clusterByGrid({gridSize: 64}),
+            method: clusterByGrid({gridSize: 72}),
             features: points,
             marker: createHatchMarker,
             cluster: createClusterMarker
