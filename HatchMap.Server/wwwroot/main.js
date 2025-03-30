@@ -1,3 +1,11 @@
+const red = "#e63d2e"
+const orange = "#ffa15e"
+
+const hatchColors = new Map([
+    ["менажницы", red],
+    ["тараканчики", orange]
+])
+
 initMap();
 
 async function initMap() {
@@ -73,7 +81,7 @@ async function initMap() {
                 map.update({location: {bounds, easing: 'ease-in-out', duration: 1500}});
             }
             },
-            circle(features.length, features[0].properties.type === "менажницы" ? "#e63d2e" : "#ffa15e").cloneNode(true)
+            circle(features.length, hatchColors.get(features[0].properties.type)).cloneNode(true)
         );
 
     function circle(count, color) {
