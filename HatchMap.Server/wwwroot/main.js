@@ -185,8 +185,8 @@ async function initMap() {
         }
       
         return [
-          [minLng, minLat],
-          [maxLng, maxLat]
+          [minLng - 0.00002, minLat - 0.0001],
+          [maxLng + 0.00002, maxLat + 0.0001]
         ];
       }
 }
