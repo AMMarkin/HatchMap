@@ -105,8 +105,8 @@ async function initMap() {
             geometry: {coordinates: hatchInfo.location},
             properties: {name: 'Количество люков', type: hatchInfo.type, filename: hatchInfo.filename}
           }));
-    
-        return new YMapClusterer({
+
+         return new YMapClusterer({
             method: clusterByGrid({gridSize: 72}),
             features: points,
             marker: createHatchMarker,
@@ -114,14 +114,13 @@ async function initMap() {
         });
     }
 
-
     function createHatchMarker({geometry, properties}){
         const location = geometry.coordinates
         const {type, filename} = properties
 
         let marker = null;
 
-        const createMarkerPopup = () => {
+        function createMarkerPopup(){
             const markerPopup = document.createElement('div')
             markerPopup.classList.add('popup')
             
@@ -155,24 +154,21 @@ async function initMap() {
             return markerPopup;
         }
         
+        const popupProps = {
+            content: createMarkerPopup,
+            position: 'right'
+        }
         marker = new YMapDefaultMarker({
             coordinates: location,
             color: type === 'менажницы' ? 'red' : 'orange',
             iconName: 'landmark',
             size: 'normal',
             onClick(){
-                hatchMarkers.forEach(m => {
-                    if(m === marker)
-                        marker.update({popup: {show: !marker._props.popup.show}})
-                    else
-                        m.update({popup: {show: false}})
-                })
+                marker.update({popup: {...popupProps, show: !marker._props.popup.show}})
             },
-            popup: {
-                content: createMarkerPopup,
-                position: 'right'
-            }
+            popup: popupProps
         })
+
         return marker;
     }
 
