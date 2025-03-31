@@ -6,6 +6,8 @@ const hatchColors = new Map([
     ["тараканчики", orange]
 ])
 
+let openedMarkers = null;
+
 initMap();
 
 async function initMap() {
@@ -164,7 +166,16 @@ async function initMap() {
             iconName: 'landmark',
             size: 'normal',
             onClick(){
-                marker.update({popup: {...popupProps, show: !marker._props.popup.show}})
+                if(marker._props.popup.show){
+                    openedMarkers = null;
+                    marker.update({popup: {...popupProps, show: false}})
+                }else{
+                    if(openedMarkers)
+                        openedMarkers.update({popup: {...openedMarkers._props.popup, show: false}})
+                    
+                    openedMarkers = marker
+                    marker.update({popup: {...popupProps, show: true}})
+                }
             },
             popup: popupProps
         })
