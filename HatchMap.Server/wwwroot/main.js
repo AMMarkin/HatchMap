@@ -97,8 +97,8 @@ async function initMap() {
         return circle;
     }
 
-    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type === 'менажницы')));
-    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'менажницы')));
+map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'менажницы')));
+ map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type === 'менажницы')));
     
     function createClusterForHatches(hatches){
         const points = hatches.map((hatchInfo, i) => ({
