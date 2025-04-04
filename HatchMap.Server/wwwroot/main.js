@@ -116,6 +116,11 @@ map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'мена
         });
     }
 
+    const popupProps = {
+            content: createMarkerPopup,
+            position: 'right'
+    }
+
     function createHatchMarker({geometry, properties}){
         const location = geometry.coordinates
         const {type, filename} = properties
@@ -150,16 +155,12 @@ map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'мена
             const closeButton = document.createElement('button');
             closeButton.textContent = "Закрыть"
             closeButton.classList.add('btn');
-            closeButton.onclick = () => marker.update({ popup: { show: false }});
+            closeButton.onclick = () => marker.update({ popup: {  ...popupProps, show: false }});
             markerPopup.appendChild(closeButton)
             
             return markerPopup;
         }
         
-        const popupProps = {
-            content: createMarkerPopup,
-            position: 'right'
-        }
         marker = new YMapDefaultMarker({
             coordinates: location,
             color: type === 'менажницы' ? 'red' : 'orange',
