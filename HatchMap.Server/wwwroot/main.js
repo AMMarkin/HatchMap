@@ -116,16 +116,16 @@ map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'мена
         });
     }
 
-    const popupProps = {
-            content: createMarkerPopup,
-            position: 'right'
-    }
-
     function createHatchMarker({geometry, properties}){
         const location = geometry.coordinates
         const {type, filename} = properties
 
         let marker = null;
+
+        const popupProps = {
+            content: createMarkerPopup,
+            position: 'right'
+        }
 
         function createMarkerPopup(){
             const markerPopup = document.createElement('div')
