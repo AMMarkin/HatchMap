@@ -39,16 +39,19 @@ body{
     background-size: cover;
 }
 
+.container{
+    padding-inline: 3rem;
+}
+
 .paper{
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 1rem;
-    padding-inline: 3rem;
 }
 
 .header{
     text-align: center;
-    margin: 0 3rem 1rem 3rem;
+    margin: 1rem -0.25rem;
     padding: 0.2rem;
 }
 
@@ -183,7 +186,7 @@ body{
 }
 
 .counters{
-    min-width: 300px;
+    width: 100%;
     padding-top: 1rem;
     border-image-source: url('./img/rect_border.png');
     border-image-slice: 97 85 100 85;
@@ -282,6 +285,9 @@ body{
 }
 
 @media (max-width: 768px) {
+    .container{
+        padding-inline: 0.125rem;
+    }
     .paper{
         display: flex;
         flex-direction: column;
