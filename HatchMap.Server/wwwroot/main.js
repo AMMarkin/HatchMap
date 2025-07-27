@@ -7,7 +7,9 @@ const hatchColors = new Map([
 ])
 
 let openedMarkers = null;
+let isLocalStorageAvailable = true;
 
+checkIsLocalStorageAvailable();
 initMap();
 
 async function initMap() {
@@ -18,7 +20,8 @@ async function initMap() {
         YMap, 
         YMapDefaultSchemeLayer, 
         YMapDefaultFeaturesLayer,
-        YMapControls
+        YMapControls,
+        YMapListener
     } = ymaps3;
 
     // register in `ymaps3.import` which CDN to take the package from
@@ -37,7 +40,7 @@ async function initMap() {
         YMapClusterer, 
         clusterByGrid
     } = await ymaps3.import('@yandex/ymaps3-clusterer');
-          
+    
     // Иницилиазируем карту
     const map = new YMap(
         // Передаём ссылку на HTMLElement контейнера
@@ -45,13 +48,7 @@ async function initMap() {
 
         // Передаём параметры инициализации карты
         {
-            location: {
-                // Координаты центра карты
-                center: [37.628144, 55.753842],
-
-                // Уровень масштабирования
-                zoom: 12
-            }
+            location: loadMapLocation() 
         }
     );
 
@@ -59,6 +56,14 @@ async function initMap() {
     map.addChild(new YMapDefaultSchemeLayer());
     map.addChild(new YMapDefaultFeaturesLayer());
     map.addChild(new YMapControls({position: 'right'}).addChild(new YMapZoomControl({})));
+
+    map.addChild(new YMapListener({
+        onUpdate: (object) => {
+            if(isLocalStorageAvailable && object.mapInAction){
+                localStorage.setItem("map.location", JSON.stringify({center: map.center, zoom: map.zoom}));
+            }
+        }
+    }))
 
     // Заполнение маркерами
     const hatchInfos = await fetch('/hatches')
@@ -97,8 +102,8 @@ async function initMap() {
         return circle;
     }
 
-map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'менажницы')));
- map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type === 'менажницы')));
+    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'менажницы')));
+    map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type === 'менажницы')));
     
     function createClusterForHatches(hatches){
         const points = hatches.map((hatchInfo, i) => ({
@@ -204,6 +209,26 @@ map.addChild(createClusterForHatches(hatchInfos.filter(x => x.type !== 'мена
           [minLng - 0.00002, minLat - 0.0001],
           [maxLng + 0.00002, maxLat + 0.0001]
         ];
-      }
+    }
 }
 
+function loadMapLocation(){
+    const savedLocation = JSON.parse(localStorage.getItem("map.location"));
+    const defaultLocation = { 
+        // Координаты центра карты
+        center: [37.628144, 55.753842],
+
+        // Уровень масштабирования
+        zoom: 12
+    };
+    return savedLocation ?? defaultLocation;
+}
+
+function checkIsLocalStorageAvailable(){
+    try{
+        eval("localStorage.setItem(\"test\", \"test\"); localStorage.removeItem(\"test\")");
+    }
+    catch{
+        isLocalStorageAvailable = false;
+    }
+}
