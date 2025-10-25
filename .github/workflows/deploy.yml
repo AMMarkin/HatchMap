@@ -42,8 +42,7 @@ jobs:
         command: |
           cd hatchmap
           docker pull alexmarkin/hatchmap
-          docker kill hatchmap || true
-          docker rm hatchmap || true
-          docker run -d --name hatchmap -p 80:80 -p 443:443 -v ./https:/https/ --env-file=./hatchmap.env alexmarkin/hatchmap
+          docker compose down
+          docker compose up -d
               
     
